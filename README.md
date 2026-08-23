@@ -5,6 +5,8 @@ An interactive exposure-time and noise-budget workbench for astronomical spectro
 [![CI](https://github.com/Biswajit1999/spectral-noise-budget-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/Biswajit1999/spectral-noise-budget-studio/actions/workflows/ci.yml)
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
 
+**[Launch the interactive laboratory →](https://biswajit1999.github.io/spectral-noise-budget-studio/)**
+
 ## Motivation
 
 An observing proposal should connect a target, instrument, and science feature before time is requested. This repository makes that chain explicit: AB magnitude and spectral resolution define photons per bin; collecting area, throughput, and exposure determine detected electrons; background and detector terms set total variance; the result is reported as wavelength-resolved relative precision.
