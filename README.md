@@ -1,6 +1,6 @@
 # Spectral Noise Budget Studio
 
-An interactive exposure-time and noise-budget workbench for astronomical spectroscopy from 0.6 to 5 μm.
+A provenance-first feature-placement board using real JWST/NIRCam transmission profiles, with the reduced exposure-time model retained as a tested comparison layer.
 
 [![CI](https://github.com/Biswajit1999/spectral-noise-budget-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/Biswajit1999/spectral-noise-budget-studio/actions/workflows/ci.yml)
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
@@ -9,15 +9,27 @@ An interactive exposure-time and noise-budget workbench for astronomical spectro
 
 ## Motivation
 
-An observing proposal should connect a target, instrument, and science feature before time is requested. This repository makes that chain explicit: AB magnitude and spectral resolution define photons per bin; collecting area, throughput, and exposure determine detected electrons; background and detector terms set total variance; the result is reported as wavelength-resolved relative precision.
+An observing proposal should connect a target, instrument, and science feature before time is requested. The primary workflow now begins with real bandpasses: four IVOA transmission curves fetched from the SVO Filter Profile Service, independently hashed, and used to test whether H₂O, CH₄, CO₂, or CO features fall inside a transmitting region.
+
+## Real reference-data build
+
+```bash
+python -m pip install -r requirements-data.txt
+python scripts/build_jwst_filters.py
+```
+
+The browser bundle contains F150W, F277W, F356W, and F444W curves with their exact VOTable URLs and SHA-256 receipts. These filter profiles are not misrepresented as a complete Pandeia mode throughput; the interface links the official STScI upgrade path.
 
 ## Research question
 
 For a declared target and instrument concept, is a 100 ppm spectral feature photon-limited, detector/background-limited, or simply below the single-exposure precision?
 
-## Implemented budget
+## Implemented evidence workflow
 
-- AB magnitude to `fν` conversion;
+- real SVO/IVOA JWST filter-profile ingestion and hashing;
+- feature-to-bandpass intersection for four molecular bands;
+- transmission-at-feature and effective-wavelength diagnostics;
+- AB magnitude to `fν` conversion retained in the reduced test model;
 - photon energy and per-resolution-element bandwidth;
 - telescope collecting area and end-to-end throughput;
 - target shot noise;
