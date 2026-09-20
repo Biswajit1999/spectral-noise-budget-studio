@@ -1,126 +1,131 @@
 # Spectral Noise Budget Studio
 
-A provenance-first feature-placement board using real JWST/NIRCam transmission profiles, with the reduced exposure-time model retained as a tested comparison layer.
+A provenance-bound, pre-ETC audit of four molecular wavelength markers against four JWST/NIRCam system-throughput profiles.
 
 [![CI](https://github.com/Biswajit1999/spectral-noise-budget-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/Biswajit1999/spectral-noise-budget-studio/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Biswajit1999/spectral-noise-budget-studio)](https://github.com/Biswajit1999/spectral-noise-budget-studio/releases)
 [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
 
-**[Launch the interactive laboratory →](https://biswajit1999.github.io/spectral-noise-budget-studio/)**
+**[Open the interactive evidence board →](https://biswajit1999.github.io/spectral-noise-budget-studio/)**
 
-## Motivation
+![Research maturity before and after v1.1.0](assets/research-maturity-before-after.svg)
 
-An observing proposal should connect a target, instrument, and science feature before time is requested. The primary workflow now begins with real bandpasses: four IVOA transmission curves fetched from the SVO Filter Profile Service, independently hashed, and used to test whether H₂O, CH₄, CO₂, or CO features fall inside a transmitting region.
+## Result first
 
-## Real reference-data build
+The v1.1.0 controlled audit evaluates 16 declared feature/filter pairs using linear interpolation over 3,192 committed samples.
+
+| Classification | Count | Decision rule |
+|---|---:|---|
+| Core | 4 | `T(λ) / Tpeak ≥ 0.5` |
+| Wing | 0 | `0.1 ≤ T(λ) / Tpeak < 0.5` |
+| Edge | 1 | `0 < T(λ) / Tpeak < 0.1` |
+| Outside | 11 | outside sampled support or zero response |
+
+The non-obvious result is the CH₄ marker at 3.30 μm in F277W: it lies just inside the sampled profile but retains only about 0.026% of peak response. Under the deliberately narrow source-photon-limited proxy, matching the peak-response photon count would require about 3,805 times longer. The same marker is a core placement in F356W.
+
+## Research question and hypothesis
+
+**Question:** At four declared molecular feature wavelengths, which committed NIRCam profiles retain at least half of peak response?
+
+**Hypothesis:** Each marker has at least one core placement, while apparent overlap at a filter edge can have a severe photon-limited cost.
+
+The hypothesis is supported for this exact four-by-four matrix. It is not generalized to other molecular bands, observing modes, targets, detector configurations, or source spectra.
+
+## Scientific boundary
+
+This is a passband-placement audit, not a JWST detectability forecast. The filter curves support a necessary optical-coverage check. They do not by themselves model background, detector readout, extraction aperture, saturation, source morphology, covariance, systematics, or scheduling overheads. A broadband imaging filter also does not isolate a monochromatic molecular feature.
+
+Use the official [JWST Pandeia throughput workflow](https://jwst-docs.stsci.edu/jwst-exposure-time-calculator-overview/jwst-etc-pandeia-engine-tutorial/jwst-etc-instrument-throughputs) and ETC for an observing proposal. STScI describes the NIRCam curves as total system throughput, including the telescope, NIRCam optics, filters, dichroics, and detector response; see the [NIRCam filter documentation](https://jwst-docs.stsci.edu/jwst-near-infrared-camera/nircam-instrumentation/nircam-filters).
+
+## Methods in one screen
+
+For a marker wavelength `λ`, linear interpolation gives `T(λ)` from the bracketing profile samples. The normalized response and proxy are
+
+```text
+q(λ) = T(λ) / Tpeak
+photon-limited relative-time proxy = Tpeak / T(λ) = 1 / q(λ)
+```
+
+The proxy follows only from photon count being proportional to throughput × time. It is infinite at zero response and deliberately excludes every other noise term.
+
+The pivot wavelength is calculated from the sampled curve:
+
+```text
+λpivot = sqrt[ ∫ T(λ) λ dλ / ∫ T(λ)/λ dλ ]
+```
+
+All integrals use the trapezoidal rule. See [docs/METHODS.md](docs/METHODS.md) for the complete protocol, assumptions, falsifiers, and validation plan.
+
+## Reproduce the reviewed evidence
+
+Requires Node.js 24.
+
+```bash
+npm ci
+npm run evidence:check
+npm test
+npm run build
+```
+
+To rebuild the deterministic derived products from the committed source snapshot:
+
+```bash
+npm run evidence
+```
+
+To refresh the external source snapshot explicitly:
 
 ```bash
 python -m pip install -r requirements-data.txt
 python scripts/build_jwst_filters.py
-```
-
-The browser bundle contains F150W, F277W, F356W, and F444W curves with their exact VOTable URLs and SHA-256 receipts. These filter profiles are not misrepresented as a complete Pandeia mode throughput; the interface links the official STScI upgrade path.
-
-## Research question
-
-For a declared target and instrument concept, is a 100 ppm spectral feature photon-limited, detector/background-limited, or simply below the single-exposure precision?
-
-## Implemented evidence workflow
-
-- real SVO/IVOA JWST filter-profile ingestion and hashing;
-- feature-to-bandpass intersection for four molecular bands;
-- transmission-at-feature and effective-wavelength diagnostics;
-- AB magnitude to `fν` conversion retained in the reduced test model;
-- photon energy and per-resolution-element bandwidth;
-- telescope collecting area and end-to-end throughput;
-- target shot noise;
-- simplified wavelength-dependent sky/thermal background;
-- dark-current and read-noise terms;
-- photon-only and total precision in ppm;
-- feature S/N, source-variance fraction, bin width, and collecting-area diagnostics;
-- accessible chart/table and responsive parameter controls;
-- scientific limiting-case tests for aperture and exposure scaling.
-
-## Equations
-
-```text
-fν = 3631 Jy × 10^(-0.4 m_AB)
-Δλ = λ/R
-Nγ = [fν c/λ²] Δλ A η t / [hc/λ]
-σ² = Nγ + Nbackground + Ndark + nread σread²
-relative precision = σ/Nγ
-```
-
-The app evaluates 90 wavelength bins. The flat AB magnitude assumption keeps the experiment focused on instrumental scaling; it is not a stellar atmosphere model.
-
-## Quick start
-
-```bash
-git clone https://github.com/Biswajit1999/spectral-noise-budget-studio.git
-cd spectral-noise-budget-studio
-npm install
-npm run dev
-```
-
-## Reproducibility gate
-
-```bash
+npm run evidence
 npm run check
 ```
 
-GitHub Actions runs lint, Vitest, TypeScript, and the production build.
+External refresh is intentionally separate from ordinary build and deployment. A remote service change cannot silently alter a reviewed release.
 
-## Project layout
+## Evidence products
+
+| Artifact | Purpose |
+|---|---|
+| `public/data/jwst-nircam-filters.json` | reviewed source snapshot, URLs, sample arrays, retrieval time, SHA-256 receipts |
+| `public/data/feature-passband-audit.json` | machine-readable question, hypothesis, rules, summaries, and all 16 results |
+| `research/feature-passband-audit.csv` | analysis-ready result table |
+| `assets/research-maturity-before-after.svg` | before/after repository-maturity audit |
+| `research/report-source.md` | compact result narrative and claim ledger |
+| `docs/BASELINE_AUDIT.md` | scored before/after rubric with evidence |
+
+## Verification depth
+
+The test suite covers:
+
+- array length, finite-value, bounds, ordering, and SHA-256 contracts;
+- recomputation of each stored curve peak;
+- exact-knot, outside-support, and midpoint interpolation behavior;
+- finite pivot wavelength and equivalent width for every filter;
+- the preregistered four-core/one-edge outcome;
+- the reciprocal identity between normalized response and the time proxy;
+- staleness checks for every generated evidence product.
+
+CI uses Node 24, immutable action commits, minimum permissions, concurrency cancellation, and a ten-minute timeout. Deployment runs the same full verification gate.
+
+## Source provenance
+
+The four VOTables are retrieved from the [SVO Filter Profile Service](https://svo2.cab.inta-csic.es/theory/fps/). Each source URL and payload SHA-256 is retained beside the samples. SVO documents its query interface and IVOA-compatible transmission-curve representation in the [service note](https://svo2.cab.inta-csic.es/theory/NOTE-SVOFPS-1.0.20121015.pdf).
+
+## Repository map
 
 ```text
-src/science.ts       photon and detector budget
-src/science.test.ts  aperture, exposure, and finiteness checks
-src/project.ts       instrument controls and scope statement
-src/Chart.tsx        accessible precision curve
-docs/METHODS.md      units, constants, and validation plan
-design-system/       UI design contract
-CITATION.cff         machine-readable citation
+src/passband.ts                    analysis core
+src/passband.test.ts               scientific and data-contract tests
+scripts/build_jwst_filters.py      explicit external-data refresh
+scripts/build_evidence.ts          deterministic evidence compiler
+public/data/                       reviewed source and derived JSON
+research/                          CSV result and claim ledger
+docs/                              method and maturity audits
+assets/                            comparison graph
 ```
 
-## Suggested experiments
+## Citation
 
-- hold photons per bin roughly constant while trading `R` and exposure;
-- move from 2 m to 8 m aperture and compare the photon-limit scaling;
-- lower throughput to reveal where detector/background terms matter;
-- make the target faint and inspect the rapid loss of precision;
-- estimate visits required for 100 ppm at fixed per-visit precision.
-
-## Interpretation
-
-The median `100 ppm S/N` is `100 / median(total precision in ppm)`. Repeated independent visits ideally improve as `√N`; real instruments frequently hit time-correlated or calibration floors before that limit.
-
-The budget is appropriate for order-of-magnitude design comparisons and test-driven development. It is not sufficient to justify observatory time by itself.
-
-## Limitations
-
-- flat AB spectrum, no stellar or planetary SED;
-- unobscured geometric area;
-- fixed sampling and read strategy;
-- illustrative background law;
-- no atmosphere, tellurics, slit loss, PSF extraction aperture, saturation, cosmic rays, persistence, nonlinearity, or overhead;
-- no covariance between spectral bins or visits;
-- no systematic noise floor.
-
-## Research upgrade path
-
-1. Accept a flux-calibrated spectrum or PHOENIX stellar model.
-2. Load throughput and detector curves with provenance.
-3. Separate atmosphere, telescope, disperser, slit/fibre, and QE terms.
-4. Model extraction aperture and wavelength-dependent PSF.
-5. Add saturation/readout modes and overhead-aware visit planning.
-6. Validate against an observatory ETC at declared benchmark points.
-7. Propagate throughput/background uncertainties with Monte Carlo samples.
-
-## References
-
-- Howell, S. B. (2006), *Handbook of CCD Astronomy*, Cambridge University Press.
-- McLean, I. S. (2008), *Electronic Imaging in Astronomy*, Springer, [doi:10.1007/978-3-540-76583-7](https://doi.org/10.1007/978-3-540-76583-7).
-- Bessell, M. S. & Murphy, S. J. (2012), *Spectrophotometric libraries, revised photonic passbands, and zero points*, [PASP 124, 140](https://doi.org/10.1086/664083).
-
-## Citation and license
-
-See [`CITATION.cff`](CITATION.cff). [MIT licensed](LICENSE).
+Use [CITATION.cff](CITATION.cff) or cite the archived v1.1.0 release. MIT licensed.

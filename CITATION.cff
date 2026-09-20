@@ -5,8 +5,8 @@ type: software
 authors:
   - family-names: Jana
     given-names: Biswajit
-version: 1.0.0
-date-released: 2026-08-23
+version: 1.1.0
+date-released: 2026-09-20
 license: MIT
 repository-code: "https://github.com/Biswajit1999/spectral-noise-budget-studio"
-keywords: [spectroscopy, exposure time, photon noise, instrument design]
+keywords: [JWST, NIRCam, passband, throughput, reproducibility, instrument design]
