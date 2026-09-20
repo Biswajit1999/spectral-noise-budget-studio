@@ -1,0 +1,255 @@
+{
+  "schema": "spectral-noise.feature-passband-audit/1",
+  "release": "v1.1.0",
+  "source": {
+    "schema": "spectral-noise.jwst-filters/2",
+    "retrievedAtUtc": "2026-09-20T00:07:01.883709+00:00",
+    "service": "SVO Filter Profile Service / IVOA",
+    "serviceUrl": "https://svo2.cab.inta-csic.es/theory/fps/"
+  },
+  "researchQuestion": "At four declared molecular feature wavelengths, which committed NIRCam profiles retain at least half of peak response?",
+  "hypothesis": "Each feature has at least one core placement; apparent edge overlap can carry a severe photon-limited time penalty.",
+  "decisionRule": {
+    "core": "T(lambda) / T_peak >= 0.5",
+    "wing": "0.1 <= T(lambda) / T_peak < 0.5",
+    "edge": "0 < T(lambda) / T_peak < 0.1",
+    "outside": "outside sampled support or zero interpolated response"
+  },
+  "proxyBoundary": "The time multiplier T_peak/T(lambda) is a source-photon-limited relative proxy only; it is not a JWST ETC, a molecular detectability prediction, or evidence that broadband imaging isolates a monochromatic feature.",
+  "features": [
+    {
+      "id": "h2o-270",
+      "label": "H₂O · 2.70 μm",
+      "species": "H₂O",
+      "wavelengthMicron": 2.7
+    },
+    {
+      "id": "ch4-330",
+      "label": "CH₄ · 3.30 μm",
+      "species": "CH₄",
+      "wavelengthMicron": 3.3
+    },
+    {
+      "id": "co2-430",
+      "label": "CO₂ · 4.30 μm",
+      "species": "CO₂",
+      "wavelengthMicron": 4.3
+    },
+    {
+      "id": "co-467",
+      "label": "CO · 4.67 μm",
+      "species": "CO",
+      "wavelengthMicron": 4.67
+    }
+  ],
+  "filters": [
+    {
+      "id": "F150W",
+      "samples": 445,
+      "pivotWavelengthMicron": 1.5007438278211158,
+      "transmissionWeightedMeanMicron": 1.5039880464126658,
+      "equivalentWidthMicron": 0.317943242821577,
+      "peakTransmission": 0.451875,
+      "sourceUrl": "https://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=JWST/NIRCam.F150W",
+      "sourceSha256": "0bdcfd2a9520091b1bab7c0ef0e406852a37f52cab718d74d478064556306637"
+    },
+    {
+      "id": "F277W",
+      "samples": 804,
+      "pivotWavelengthMicron": 2.7617397879030894,
+      "transmissionWeightedMeanMicron": 2.769332373046804,
+      "equivalentWidthMicron": 0.6826777200315488,
+      "peakTransmission": 0.411416,
+      "sourceUrl": "https://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=JWST/NIRCam.F277W",
+      "sourceSha256": "503870e4b115e9ad534dabb09b40b5d98b1f2834447aac4afb3e209a4d5056f8"
+    },
+    {
+      "id": "F356W",
+      "samples": 916,
+      "pivotWavelengthMicron": 3.568361911280741,
+      "transmissionWeightedMeanMicron": 3.5767872566728927,
+      "equivalentWidthMicron": 0.7811035398833511,
+      "peakTransmission": 0.522248,
+      "sourceUrl": "https://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=JWST/NIRCam.F356W",
+      "sourceSha256": "9f1cd99657822fa5adbecc87ead7e81b8d628eb6f0eb4ce309c6a9e8a1a32734"
+    },
+    {
+      "id": "F444W",
+      "samples": 1027,
+      "pivotWavelengthMicron": 4.4043150920407,
+      "transmissionWeightedMeanMicron": 4.415974447236743,
+      "equivalentWidthMicron": 1.0313254816272754,
+      "peakTransmission": 0.514676,
+      "sourceUrl": "https://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=JWST/NIRCam.F444W",
+      "sourceSha256": "390eca18429a9258d8442b2e8f0ca94edbea461e61c72d5df1ce5087997a3d6b"
+    }
+  ],
+  "counts": {
+    "core": 4,
+    "wing": 0,
+    "edge": 1,
+    "outside": 11
+  },
+  "records": [
+    {
+      "featureId": "h2o-270",
+      "filterId": "F150W",
+      "wavelengthMicron": 2.7,
+      "transmission": 0,
+      "normalizedTransmission": 0,
+      "photonLimitedTimeMultiplier": null,
+      "classification": "outside",
+      "insideSampledSupport": false
+    },
+    {
+      "featureId": "h2o-270",
+      "filterId": "F277W",
+      "wavelengthMicron": 2.7,
+      "transmission": 0.408114525,
+      "normalizedTransmission": 0.9919753363991678,
+      "photonLimitedTimeMultiplier": 1.0080895797570546,
+      "classification": "core",
+      "insideSampledSupport": true
+    },
+    {
+      "featureId": "h2o-270",
+      "filterId": "F356W",
+      "wavelengthMicron": 2.7,
+      "transmission": 0,
+      "normalizedTransmission": 0,
+      "photonLimitedTimeMultiplier": null,
+      "classification": "outside",
+      "insideSampledSupport": false
+    },
+    {
+      "featureId": "h2o-270",
+      "filterId": "F444W",
+      "wavelengthMicron": 2.7,
+      "transmission": 0,
+      "normalizedTransmission": 0,
+      "photonLimitedTimeMultiplier": null,
+      "classification": "outside",
+      "insideSampledSupport": false
+    },
+    {
+      "featureId": "ch4-330",
+      "filterId": "F150W",
+      "wavelengthMicron": 3.3,
+      "transmission": 0,
+      "normalizedTransmission": 0,
+      "photonLimitedTimeMultiplier": null,
+      "classification": "outside",
+      "insideSampledSupport": false
+    },
+    {
+      "featureId": "ch4-330",
+      "filterId": "F277W",
+      "wavelengthMicron": 3.3,
+      "transmission": 0.00010811250000000125,
+      "normalizedTransmission": 0.0002627814669337149,
+      "photonLimitedTimeMultiplier": 3805.443403861674,
+      "classification": "edge",
+      "insideSampledSupport": true
+    },
+    {
+      "featureId": "ch4-330",
+      "filterId": "F356W",
+      "wavelengthMicron": 3.3,
+      "transmission": 0.44768277037037024,
+      "normalizedTransmission": 0.85722256546769,
+      "photonLimitedTimeMultiplier": 1.1665581848681414,
+      "classification": "core",
+      "insideSampledSupport": true
+    },
+    {
+      "featureId": "ch4-330",
+      "filterId": "F444W",
+      "wavelengthMicron": 3.3,
+      "transmission": 0,
+      "normalizedTransmission": 0,
+      "photonLimitedTimeMultiplier": null,
+      "classification": "outside",
+      "insideSampledSupport": false
+    },
+    {
+      "featureId": "co2-430",
+      "filterId": "F150W",
+      "wavelengthMicron": 4.3,
+      "transmission": 0,
+      "normalizedTransmission": 0,
+      "photonLimitedTimeMultiplier": null,
+      "classification": "outside",
+      "insideSampledSupport": false
+    },
+    {
+      "featureId": "co2-430",
+      "filterId": "F277W",
+      "wavelengthMicron": 4.3,
+      "transmission": 0,
+      "normalizedTransmission": 0,
+      "photonLimitedTimeMultiplier": null,
+      "classification": "outside",
+      "insideSampledSupport": false
+    },
+    {
+      "featureId": "co2-430",
+      "filterId": "F356W",
+      "wavelengthMicron": 4.3,
+      "transmission": 0,
+      "normalizedTransmission": 0,
+      "photonLimitedTimeMultiplier": null,
+      "classification": "outside",
+      "insideSampledSupport": false
+    },
+    {
+      "featureId": "co2-430",
+      "filterId": "F444W",
+      "wavelengthMicron": 4.3,
+      "transmission": 0.5085799777777779,
+      "normalizedTransmission": 0.9881556120312155,
+      "photonLimitedTimeMultiplier": 1.0119863590557743,
+      "classification": "core",
+      "insideSampledSupport": true
+    },
+    {
+      "featureId": "co-467",
+      "filterId": "F150W",
+      "wavelengthMicron": 4.67,
+      "transmission": 0,
+      "normalizedTransmission": 0,
+      "photonLimitedTimeMultiplier": null,
+      "classification": "outside",
+      "insideSampledSupport": false
+    },
+    {
+      "featureId": "co-467",
+      "filterId": "F277W",
+      "wavelengthMicron": 4.67,
+      "transmission": 0,
+      "normalizedTransmission": 0,
+      "photonLimitedTimeMultiplier": null,
+      "classification": "outside",
+      "insideSampledSupport": false
+    },
+    {
+      "featureId": "co-467",
+      "filterId": "F356W",
+      "wavelengthMicron": 4.67,
+      "transmission": 0,
+      "normalizedTransmission": 0,
+      "photonLimitedTimeMultiplier": null,
+      "classification": "outside",
+      "insideSampledSupport": false
+    },
+    {
+      "featureId": "co-467",
+      "filterId": "F444W",
+      "wavelengthMicron": 4.67,
+      "transmission": 0.44465936296296293,
+      "normalizedTransmission": 0.863959778507183,
+      "photonLimitedTimeMultiplier": 1.1574612903020531,
+      "classification": "core",
+      "insideSampledSupport": true
+    }
+  ]
+}

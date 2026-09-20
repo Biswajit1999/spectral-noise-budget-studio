@@ -1,0 +1,17 @@
+feature_id,species,wavelength_micron,filter_id,classification,transmission,normalized_transmission,photon_limited_time_multiplier,inside_sampled_support
+h2o-270,H₂O,2.70,F150W,outside,0.000000000,0.000000000,,false
+h2o-270,H₂O,2.70,F277W,core,0.4081145250,0.9919753364,1.008089580,true
+h2o-270,H₂O,2.70,F356W,outside,0.000000000,0.000000000,,false
+h2o-270,H₂O,2.70,F444W,outside,0.000000000,0.000000000,,false
+ch4-330,CH₄,3.30,F150W,outside,0.000000000,0.000000000,,false
+ch4-330,CH₄,3.30,F277W,edge,0.0001081125000,0.0002627814669,3805.443404,true
+ch4-330,CH₄,3.30,F356W,core,0.4476827704,0.8572225655,1.166558185,true
+ch4-330,CH₄,3.30,F444W,outside,0.000000000,0.000000000,,false
+co2-430,CO₂,4.30,F150W,outside,0.000000000,0.000000000,,false
+co2-430,CO₂,4.30,F277W,outside,0.000000000,0.000000000,,false
+co2-430,CO₂,4.30,F356W,outside,0.000000000,0.000000000,,false
+co2-430,CO₂,4.30,F444W,core,0.5085799778,0.9881556120,1.011986359,true
+co-467,CO,4.67,F150W,outside,0.000000000,0.000000000,,false
+co-467,CO,4.67,F277W,outside,0.000000000,0.000000000,,false
+co-467,CO,4.67,F356W,outside,0.000000000,0.000000000,,false
+co-467,CO,4.67,F444W,core,0.4446593630,0.8639597785,1.157461290,true
