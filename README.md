@@ -8,7 +8,6 @@ A provenance-bound, pre-ETC audit of four molecular wavelength markers against f
 
 **[Open the interactive evidence board →](https://biswajit1999.github.io/spectral-noise-budget-studio/)**
 
-![Research maturity before and after v1.1.0](assets/research-maturity-before-after.svg)
 
 ## Result first
 
@@ -91,9 +90,8 @@ External refresh is intentionally separate from ordinary build and deployment. A
 | `public/data/jwst-nircam-filters.json` | reviewed source snapshot, URLs, sample arrays, retrieval time, SHA-256 receipts |
 | `public/data/feature-passband-audit.json` | machine-readable question, hypothesis, rules, summaries, and all 16 results |
 | `research/feature-passband-audit.csv` | analysis-ready result table |
-| `assets/research-maturity-before-after.svg` | before/after repository-maturity audit |
 | `research/report-source.md` | compact result narrative and claim ledger |
-| `docs/BASELINE_AUDIT.md` | scored before/after rubric with evidence |
+| `docs/BASELINE_AUDIT.md` | baseline defects and corrections |
 
 ## Verification depth
 

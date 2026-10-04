@@ -78,26 +78,9 @@ const csv = [
   }),
 ].join('\n') + '\n'
 
-const dimensions = [
-  ['Scientific question', 42, 96],
-  ['Provenance', 68, 98],
-  ['Method validity', 45, 95],
-  ['Evidence products', 25, 96],
-  ['Test depth', 31, 94],
-  ['Claim discipline', 57, 97],
-  ['Reproducibility', 50, 96],
-  ['Maintenance', 36, 91],
-] as const
-const row = (label: string, before: number, after: number, index: number) => {
-  const y = 108 + index * 54
-  return `<text x="32" y="${y + 5}" class="label">${label}</text><rect x="236" y="${y - 11}" width="${before * 4.3}" height="14" rx="7" class="before"/><rect x="236" y="${y + 10}" width="${after * 4.3}" height="14" rx="7" class="after"/><text x="${246 + before * 4.3}" y="${y + 1}" class="score">${before}</text><text x="${246 + after * 4.3}" y="${y + 22}" class="score">${after}</text>`
-}
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="760" height="600" viewBox="0 0 760 600" role="img" aria-labelledby="title description"><title id="title">Research maturity before and after v1.1.0</title><desc id="description">Eight dimensions improve from an average of 44 to 95 out of 100.</desc><style>.bg{fill:#07111f}.title{fill:#f5f8ff;font:700 25px system-ui}.sub,.label,.score,.note{font-family:system-ui}.sub,.note{fill:#9fb3cc}.label{fill:#e5edf8;font-size:13px}.score{fill:#f5f8ff;font-size:11px}.before{fill:#64748b}.after{fill:#7ce38b}</style><rect class="bg" width="760" height="600" rx="22"/><text x="32" y="40" class="title">Spectral Noise Budget Studio · v1.1.0</text><text x="32" y="66" class="sub">Research maturity audit · before 44 / after 95</text>${dimensions.map(([label, before, after], index) => row(label, before, after, index)).join('')}<rect x="32" y="544" width="14" height="14" rx="7" class="before"/><text x="54" y="556" class="note">before</text><rect x="116" y="544" width="14" height="14" rx="7" class="after"/><text x="138" y="556" class="note">after</text><text x="32" y="582" class="note">Scores are a documented repository-maturity rubric, not scientific performance measurements.</text></svg>`
-
 const outputs = new Map([
   ['public/data/feature-passband-audit.json', JSON.stringify(evidence, null, 2) + '\n'],
   ['research/feature-passband-audit.csv', csv],
-  ['assets/research-maturity-before-after.svg', svg + '\n'],
 ])
 const checkOnly = process.argv.includes('--check')
 for (const [relativePath, content] of outputs) {

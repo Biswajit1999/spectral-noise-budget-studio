@@ -7,7 +7,7 @@
 - linear-interpolation passband analysis with pivot wavelength and equivalent width;
 - explicit core, wing, edge, and outside decision rules;
 - machine-readable JSON and CSV evidence products;
-- research-maturity comparison graph and scored baseline audit;
+- baseline audit of scientific and software defects;
 - data-contract, numerical-property, and headline-result tests;
 - deterministic artifact freshness verification.
 
@@ -22,4 +22,3 @@
 ### Removed
 
 - disconnected illustrative spectroscopic noise code and its unsupported detector/background constants.
-

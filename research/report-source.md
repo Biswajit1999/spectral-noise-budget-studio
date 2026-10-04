@@ -18,6 +18,5 @@ We tested four declared molecular wavelength markers against four committed JWST
 
 - `public/data/feature-passband-audit.json`
 - `research/feature-passband-audit.csv`
-- `assets/research-maturity-before-after.svg`
 
 Run `npm run check` under Node 24 to validate the source contracts, regenerate nothing implicitly, verify evidence freshness, execute numerical tests, type-check, and build the application.
