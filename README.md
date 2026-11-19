@@ -22,6 +22,10 @@ The v1.1.0 controlled audit evaluates 16 declared feature/filter pairs using lin
 
 The non-obvious result is the CH₄ marker at 3.30 μm in F277W: it lies just inside the sampled profile but retains only about 0.026% of peak response. Under the deliberately narrow source-photon-limited proxy, matching the peak-response photon count would require about 3,805 times longer. The same marker is a core placement in F356W.
 
+![Logarithmic relative throughput in F277W and F356W across the 3.30 micrometre methane marker](public/methane-filter-edge.png)
+
+The lines show the committed system-throughput samples normalised to each filter's own peak. Dots show linear interpolation at 3.30 μm. [See the figure and download the evidence matrix](https://biswajit1999.github.io/spectral-noise-budget-studio/#filter-edge). Install NumPy and Matplotlib and run `python scripts/plot_methane_filter_edge.py` to regenerate it.
+
 ## Research question and hypothesis
 
 **Question:** At four declared molecular feature wavelengths, which committed NIRCam profiles retain at least half of peak response?
