@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import './styles.css'
+import evidenceCsv from '../research/feature-passband-audit.csv?url'
 import { FEATURES, type FilterProfile, type PlacementAudit } from './passband'
 
 type FilterData = {
@@ -184,6 +185,14 @@ export default function App() {
           <div><p>{evidence.proxyBoundary}</p><p>{data.warning}</p><a href={data.jwstThroughputContext}>Open the official Pandeia throughput guidance ↗</a></div>
         </section>
 
+        <section className="filter-edge-evidence" id="filter-edge" aria-labelledby="filter-edge-title">
+          <h2 id="filter-edge-title">Where the methane marker falls</h2>
+          <figure>
+            <img src={`${import.meta.env.BASE_URL}methane-filter-edge.png`} width={936} height={540} loading="lazy" alt="At 3.30 micrometres the F277W response is on its low-throughput edge and F356W is in its core" />
+            <figcaption>A logarithmic scale reveals the F277W tail near 3.30 µm. The curves use each filter’s own peak as the normalisation. This comparison tests throughput at a wavelength and excludes the full exposure-time and background budget.</figcaption>
+          </figure>
+          <p><a href={evidenceCsv} download="feature-passband-audit.csv">Download all 16 feature/filter records</a></p>
+        </section>
         <section className="source" id="source">
           <div><span>REFERENCE RECEIPTS</span><h2>Curves with<br />addresses.</h2><p>SHA-256 receipts bind every calculation to the exact VOTable payload used for this release.</p></div>
           <ol>{data.filters.map((filter, index) => <li key={filter.id}><b>{String(index + 1).padStart(2, '0')}</b><strong>{filter.id}</strong><a href={filter.url}>SVO VOTable ↗</a><code>{filter.votableSha256}</code></li>)}</ol>
